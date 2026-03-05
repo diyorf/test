@@ -1,0 +1,20 @@
+version: "3.9"
+services:
+  grader-runner:
+    build:
+      context: ..
+      dockerfile: docker/runner/Dockerfile
+    image: python-grader-runner:local
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+    network_mode: "none"
+    pids_limit: 64
+    mem_limit: 256m
+    cpus: 0.50
+    security_opt:
+      - no-new-privileges:true
+      - seccomp=./sandbox/seccomp.json
+    cap_drop:
+      - ALL
+    restart: "no"
