@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}PyLearn • Course{% endblock %}
+
+{% block content %}
+<div class="card platform-card p-4 mb-3">
+  <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+    <div>
+      <h2 class="mb-1">{{ course.title|default:'Python Fundamentals' }}</h2>
+      <p class="text-muted mb-2">{{ course.description|default:'Course description not provided.' }}</p>
+      <span class="badge badge-soft">Level: {{ course.level|default:'beginner' }}</span>
+    </div>
+    <a href="{% url 'dashboard' %}" class="btn btn-outline-secondary">Back to Dashboard</a>
+  </div>
+</div>
+
+<h5 class="mb-3">Lessons</h5>
+{% if lessons %}
+  <div class="vstack gap-2">
+    {% for lesson in lessons %}
+      <div class="lesson-item d-flex justify-content-between align-items-center">
+        <div>
+          <strong>{{ forloop.counter }}. {{ lesson.title }}</strong>
+          <div class="small text-muted">{{ lesson.estimated_minutes|default:15 }} min • {{ lesson.lesson_type|default:'theory' }}</div>
+        </div>
+        <a href="{% url 'lesson-page' %}?id={{ lesson.id }}" class="btn btn-sm btn-primary">Open Lesson</a>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p class="text-muted">No lessons available in this course yet.</p>
+{% endif %}
+{% endblock %}

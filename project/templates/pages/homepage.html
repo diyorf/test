@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}PyLearn • Homepage{% endblock %}
+
+{% block content %}
+<section class="hero mb-4">
+  <div class="row align-items-center g-4">
+    <div class="col-lg-8">
+      <h1 class="display-6 fw-bold">Master Python with interactive practice</h1>
+      <p class="lead mb-4">Follow structured lessons, solve tasks, run code in-browser, and get instant grading feedback.</p>
+      <div class="d-flex flex-wrap gap-2">
+        <a href="{% url 'dashboard' %}" class="btn btn-light btn-lg">Go to Dashboard</a>
+        <a href="{% url 'coding-page' %}" class="btn btn-outline-light btn-lg">Try Coding Page</a>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="glass-panel p-3">
+        <div class="small text-uppercase opacity-75">Live Stats</div>
+        <div class="mt-2">Courses: <strong>{{ total_courses|default:0 }}</strong></div>
+        <div>Lessons: <strong>{{ total_lessons|default:0 }}</strong></div>
+        <div>Tasks: <strong>{{ total_tasks|default:0 }}</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="row g-3">
+  <div class="col-md-4">
+    <div class="card platform-card h-100 p-3">
+      <h5>Structured Learning</h5>
+      <p class="text-muted mb-0">Courses broken into small, clear lesson steps for faster understanding.</p>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card platform-card h-100 p-3">
+      <h5>Interactive Code Runner</h5>
+      <p class="text-muted mb-0">Write and run Python directly from the browser with instant output.</p>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card platform-card h-100 p-3">
+      <h5>Automatic Grading</h5>
+      <p class="text-muted mb-0">Get pass/fail test summary, score, and execution time after submission.</p>
+    </div>
+  </div>
+</section>
+{% endblock %}

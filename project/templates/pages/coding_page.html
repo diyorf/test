@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}PyLearn • Coding{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css">
+<link rel="stylesheet" href="{% static 'css/code_editor.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="row g-3">
+  <div class="col-lg-8">
+    <div class="card platform-card p-3">
+      <div class="d-flex justify-content-between align-items-start mb-2">
+        <div>
+          <h5 class="mb-1">{{ task.title|default:'Coding Task' }}</h5>
+          <div class="small text-muted">Task ID: <span id="task-id-label">{{ task.id|default:'' }}</span></div>
+        </div>
+        <span class="badge badge-soft">{{ task.difficulty|default:'easy' }}</span>
+      </div>
+      <p class="text-muted">{{ task.description|default:'Write your Python solution below and run tests.' }}</p>
+
+      <textarea id="code-editor">{{ task.starter_code|default:'print("Hello, PyLearn!")' }}</textarea>
+
+      <div class="row g-2 mt-3">
+        <div class="col-md-6">
+          <label for="task-id" class="form-label">Task ID</label>
+          <input id="task-id" class="form-control" type="number" value="{{ task.id|default:'' }}">
+        </div>
+        <div class="col-md-6">
+          <label for="auth-token" class="form-label">Auth Token</label>
+          <input id="auth-token" class="form-control" type="text" placeholder="Token ...">
+        </div>
+        <div class="col-12">
+          <label for="stdin" class="form-label">Stdin (optional)</label>
+          <textarea id="stdin" class="form-control" rows="3"></textarea>
+        </div>
+      </div>
+
+      <div class="d-flex gap-2 mt-3">
+        <button id="run-btn" class="btn btn-success">Run Code</button>
+        <button id="submit-btn" class="btn btn-primary">Submit Solution</button>
+        <button id="clear-output-btn" class="btn btn-outline-secondary">Clear</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4">
+    <div class="card platform-card p-3 mb-3">
+      <h6>Status</h6>
+      <p class="mb-1"><strong>Action:</strong> <span id="last-action">None</span></p>
+      <p class="mb-1"><strong>API:</strong> <span id="api-status" class="badge text-bg-secondary">idle</span></p>
+      <p class="mb-0"><strong>Message:</strong> <span id="api-message">No requests yet.</span></p>
+    </div>
+    <div class="card platform-card p-3">
+      <h6>Test Results</h6>
+      <table class="table table-sm" id="test-results-table">
+        <thead><tr><th>ID</th><th>Status</th><th>Passed</th><th>Total</th><th>Score</th></tr></thead>
+        <tbody><tr><td colspan="5" class="text-muted">No results yet.</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="card platform-card p-3 mt-3">
+  <h6>Program Output</h6>
+  <pre id="output-panel" class="output-panel">Output will appear here...</pre>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+<script src="{% static 'js/code_editor.js' %}"></script>
+{% endblock %}

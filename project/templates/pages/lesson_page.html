@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}PyLearn • Lesson{% endblock %}
+
+{% block content %}
+<div class="card platform-card p-4 mb-3">
+  <h2 class="mb-1">{{ lesson.title|default:'Lesson Title' }}</h2>
+  <p class="text-muted mb-3">Estimated time: {{ lesson.estimated_minutes|default:20 }} minutes</p>
+  <article class="lesson-content">
+    {{ lesson.content|default:'Lesson content will appear here.'|linebreaks }}
+  </article>
+</div>
+
+<div class="card platform-card p-3 mb-3">
+  <h5 class="mb-2">Practice Tasks</h5>
+  {% if tasks %}
+    <div class="vstack gap-2">
+      {% for task in tasks %}
+        <div class="task-item d-flex justify-content-between align-items-center">
+          <div>
+            <strong>{{ task.title }}</strong>
+            <div class="small text-muted">Difficulty: {{ task.difficulty|default:'easy' }}</div>
+          </div>
+          <a href="{% url 'coding-page' %}?task_id={{ task.id }}" class="btn btn-sm btn-success">Solve</a>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="text-muted mb-0">No tasks linked to this lesson.</p>
+  {% endif %}
+</div>
+
+<a href="{% url 'course-page' %}" class="btn btn-outline-secondary">Back to Course</a>
+{% endblock %}
