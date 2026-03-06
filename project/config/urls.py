@@ -3,7 +3,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.http import JsonResponse
 from django.urls import include, path
-from django.views.generic import TemplateView
+from django.views.generic import RedirectView, TemplateView
 
 
 def health_check(_request):
@@ -11,6 +11,7 @@ def health_check(_request):
 
 
 urlpatterns = [
+    path("", RedirectView.as_view(url="/homepage", permanent=False), name="root-redirect"),
     path("admin/", admin.site.urls),
     path("health/", health_check, name="health-check"),
     path("", include("users.urls")),
