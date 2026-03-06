@@ -763,3 +763,19 @@ A full assembled view of backend/frontend/docker/database plus run commands is a
 Additional database bootstrap files:
 - `database/init.sql`
 - `database/README.md`
+
+---
+
+## Django Template Frontend (Reusable)
+
+The frontend templates now use Django template inheritance and tags.
+
+- Base layout: `project/templates/base.html`
+- Pages:
+  - `project/templates/pages/homepage.html`
+  - `project/templates/pages/dashboard.html`
+  - `project/templates/pages/course_page.html`
+  - `project/templates/pages/lesson_page.html`
+  - `project/templates/pages/coding_page.html`
+
+Each page is ready for context-driven rendering (e.g., `courses`, `lessons`, `task`, `user`) and uses `{% url %}`, `{% if %}`, and `{% for %}` tags.

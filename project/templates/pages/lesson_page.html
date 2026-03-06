@@ -1,22 +1,33 @@
-<!doctype html>
-<html lang="en"><head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PyLearn - Lesson</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="/static/css/platform.css">
-</head>
-<body>
-<div class="container py-4">
-  <h2>Lesson: Conditions and Loops</h2>
-  <p class="text-muted">Estimated time: 20 minutes</p>
-  <div class="card platform-card p-4 mb-3">
-    <h5>if / elif / else</h5>
-    <p>Use conditional statements to control your program flow based on boolean expressions.</p>
-    <pre class="bg-light p-3 rounded">if score >= 50:\n    print("Pass")\nelse:\n    print("Fail")</pre>
-  </div>
-  <div class="d-flex justify-content-between">
-    <button class="btn btn-outline-secondary">Previous Lesson</button>
-    <button class="btn btn-primary">Go to Coding Task</button>
-  </div>
+{% extends 'base.html' %}
+{% block title %}PyLearn • Lesson{% endblock %}
+
+{% block content %}
+<div class="card platform-card p-4 mb-3">
+  <h2 class="mb-1">{{ lesson.title|default:'Lesson Title' }}</h2>
+  <p class="text-muted mb-3">Estimated time: {{ lesson.estimated_minutes|default:20 }} minutes</p>
+  <article class="lesson-content">
+    {{ lesson.content|default:'Lesson content will appear here.'|linebreaks }}
+  </article>
 </div>
-</body></html>
+
+<div class="card platform-card p-3 mb-3">
+  <h5 class="mb-2">Practice Tasks</h5>
+  {% if tasks %}
+    <div class="vstack gap-2">
+      {% for task in tasks %}
+        <div class="task-item d-flex justify-content-between align-items-center">
+          <div>
+            <strong>{{ task.title }}</strong>
+            <div class="small text-muted">Difficulty: {{ task.difficulty|default:'easy' }}</div>
+          </div>
+          <a href="{% url 'coding-page' %}?task_id={{ task.id }}" class="btn btn-sm btn-success">Solve</a>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="text-muted mb-0">No tasks linked to this lesson.</p>
+  {% endif %}
+</div>
+
+<a href="{% url 'course-page' %}" class="btn btn-outline-secondary">Back to Course</a>
+{% endblock %}
